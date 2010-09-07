@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import './App.css';
-
+import  { Category, Comment, Post }  from './api';
 
 class App extends Component {
   render() {
+    Category.getCategories();
     return (
       <div className="app">
         <div className="list-books">
