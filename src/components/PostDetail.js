@@ -67,6 +67,7 @@ class Post extends Component {
       this.props.updateComment(comment);
       this.showMsg('Comment updated');
     } else {
+      comment.voteScore = 1;
       this.props.addComment(comment);
       this.showMsg('Comment added');
     }
@@ -151,7 +152,7 @@ class Post extends Component {
 
           </div>
 
-              <h4><i className="fa fa-comment"></i> Comments</h4>
+              <h4><i className="fa fa-comment"></i> Comments ({comments.length})</h4>
               <button
                 className="button primary-button"
                 onClick={() => this.openCommentModal({},false)}>
