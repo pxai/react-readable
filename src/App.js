@@ -6,7 +6,7 @@ import  { Category, Comment, Post }  from './api';
 
 class App extends Component {
   render() {
-    Category.getCategories();
+    Category.getAll();
     return (
       <div className="app">
         <div className="list-books">
