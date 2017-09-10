@@ -7,11 +7,10 @@ import {
   };
   
   export default function category (state = initialCategoriesState, action) {
+    console.log('These come from API: ',action.categories)
     switch (action.type) {
       case GET_CATEGORIES:
-        return {
-              posts: action.categories
-        };
+        return  action.categories;
       default: 
           return state;
     }

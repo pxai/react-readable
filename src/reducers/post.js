@@ -12,10 +12,10 @@ import {
   };
   
   export default function post (state = initialPostsState, action) {
-  
+    console.log('Reducer: ' , action);
     switch (action.type) {
       case GET_POSTS:
-        return state;
+        return action.posts;
       case GET_POST:
         return state.posts.filter(elem => elem.id === action.id);
       case ADD_POST:

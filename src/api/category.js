@@ -9,6 +9,7 @@ const Category = function () {
                   headers: RequestHeaders
                 }
             )
+            .then((res) => res.json())
     }
 
 }

@@ -4,7 +4,7 @@ const url = 'http://localhost:3001';
 
 const Comment = function () {
     this.getComments = function () {
-      fetch(url + '/comments', {
+      return fetch(url + '/comments', {
           method: 'GET', 
           headers: RequestHeaders
         }
@@ -13,7 +13,7 @@ const Comment = function () {
    }
 
    this.get = function (id) {
-    fetch(url +'/comments/' + id, {
+    return fetch(url +'/comments/' + id, {
         method: 'GET', 
         headers: RequestHeaders
       }
@@ -22,7 +22,7 @@ const Comment = function () {
   }
 
    this.getByPost = function (id) {
-    fetch(url + '/posts/'+id+'/comments', {
+    return fetch(url + '/posts/'+id+'/comments', {
         method: 'GET', 
         headers: RequestHeaders
       }
@@ -31,7 +31,7 @@ const Comment = function () {
   }
 
   this.create = function (comment) {
-    fetch(url + '/comments', {
+    return fetch(url + '/comments', {
         method: 'POST', 
         body: comment,
         headers: RequestHeaders
@@ -41,7 +41,7 @@ const Comment = function () {
   }
 
   this.vote = function (id) {
-    fetch(url + '/comments', {
+    return fetch(url + '/comments', {
         method: 'POST', 
         body: id,
         headers: RequestHeaders
@@ -51,7 +51,7 @@ const Comment = function () {
   }
 
   this.update = function (comment, id) {
-    fetch(url +'/comments/' + id, {
+    return fetch(url +'/comments/' + id, {
         method: 'PUT', 
         body: comment,
         headers: RequestHeaders
@@ -61,7 +61,7 @@ const Comment = function () {
   }
 
   this.delete = function (id) {
-    fetch(url +'/comments/' + id, {
+    return fetch(url +'/comments/' + id, {
         method: 'DELETE', 
         headers: RequestHeaders
       }

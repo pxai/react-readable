@@ -1,3 +1,5 @@
+import  { Post }  from '../api';
+
 export const GET_POST = 'GET_POST'
 export const GET_POSTS = 'GET_POSTS'
 export const GET_POSTS_BY_CATEGORY = 'GET_POSTS_BY_CATEGORY'
@@ -13,11 +15,19 @@ export function getPost(id) {
     }
 }
 
-export function getPosts() {
+export function getPosts(posts) {
     return {
-        type: GET_POSTS
+        type: GET_POSTS,
+        posts
     }
 }
+
+export function getPostsAsync() {
+    return dispatch => (
+        Post.getAll().then(posts => dispatch(getPosts(posts)))
+    )
+}
+
 
 export function getPostByCategory(category) {
     return {

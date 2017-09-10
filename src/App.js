@@ -2,14 +2,26 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
-
+import About  from './components/About';
+import Post  from './components/Post';
 import './App.css';
 import  { getCategoriesAsync }  from './actions/category';
+import  { getPostsAsync }  from './actions/post';
 
 class App extends Component {
+  
+  componentDidMount() {
+    this.props.getCategories()
+    this.props.getPosts()
+   /* .then((posts) => this.setState(() => ({
+      posts,
+      loadingFood: false,
+    })))*/
+  }
+
   render() {
     console.log('Props', this.props)
-    this.props.getCategories()
+
     return (
       <div className="app">
         <div className="list-books">
@@ -18,7 +30,16 @@ class App extends Component {
             </div>
 
         <Route path="/" exact render={() => (
+          <div>
             <h1>Home</h1>
+            <div className="posts">
+                         { 
+                   this.props.poss.map((post) =>
+                   (
+                            <Post  post={post}  />
+                   ))}
+                  </div>
+            </div>
         )}/>
         <Route path="/posts" exact render={({history}) => (
           <h1>Posts</h1>
@@ -26,15 +47,20 @@ class App extends Component {
         <Route path='/comments' render={({ history }) => (
           <h1>Comments</h1>
         )}/>
-        
+        <Route path='/about' render={({ history }) => (
+          <About />
+        )}/>
         <div className="open-search">
-              <Link to='/' className='open-search'>Home</Link>
+              <Link to='/' >Home</Link>
             </div>
             <div className="open-search">
-              <Link to='/posts' className='open-search'>Posts</Link>
+              <Link to='/posts' >Posts</Link>
             </div>
             <div className="open-create">
-              <Link to='/comments' className='add-book'>Comments</Link>
+              <Link to='/comments'>Comments</Link>
+            </div>
+            <div className="open-create">
+              <Link to='/about'>About</Link>
             </div>
         </div>
       </div>
@@ -45,7 +71,7 @@ class App extends Component {
 // maps Redux state to our props
 function mapStateToProps (state, props) {
   return {
-    posts: state.posts,
+    posts: state.post,
     comments: state.comments,
     categories: state.categories
   }
@@ -53,7 +79,8 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getCategories: () => dispatch(getCategoriesAsync())
+    getCategories: () => dispatch(getCategoriesAsync()),
+    getPosts: () => dispatch(getPostsAsync())
   }
 }
 
