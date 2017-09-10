@@ -26,6 +26,7 @@ class App extends Component {
         <Route path='/comments' render={({ history }) => (
           <h1>Comments</h1>
         )}/>
+        
         <div className="open-search">
               <Link to='/' className='open-search'>Home</Link>
             </div>
@@ -35,7 +36,7 @@ class App extends Component {
             <div className="open-create">
               <Link to='/comments' className='add-book'>Comments</Link>
             </div>
-      </div>
+        </div>
       </div>
     );
   }
@@ -50,9 +51,9 @@ function mapStateToProps (state, props) {
   }
 }
 
-function mapDispatchToProps (dispatch, props) {
+function mapDispatchToProps (dispatch) {
   return {
-    getCategories: () => getCategoriesAsync()
+    getCategories: () => dispatch(getCategoriesAsync())
   }
 }
 
@@ -60,3 +61,4 @@ export default connect(
   mapStateToProps,
   mapDispatchToProps
 )(App)
+
