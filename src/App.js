@@ -32,14 +32,23 @@ class App extends Component {
         <Route path="/" exact render={() => (
           <div>
             <h1>Home</h1>
-            <div className="posts">
-                         { 
-                   this.props.poss.map((post) =>
+              <div className="categories">Categories: 
+                { 
+                   this.props.categories.map((category) =>
                    (
-                            <Post  post={post}  />
+                           <span key={category.name}>{category.name}</span>
                    ))}
-                  </div>
-            </div>
+              </div>
+            
+              <div className="posts">
+              { 
+                  this.props.posts.map((post) =>
+                (
+                            <Post  post={post}  />
+            ))}
+              </div>
+            
+          </div>
         )}/>
         <Route path="/posts" exact render={({history}) => (
           <h1>Posts</h1>
@@ -73,7 +82,7 @@ function mapStateToProps (state, props) {
   return {
     posts: state.post,
     comments: state.comments,
-    categories: state.categories
+    categories: state.category.categories
   }
 }
 

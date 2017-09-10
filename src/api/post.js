@@ -28,7 +28,7 @@ const Post = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json() )
   }
 
   this.create = function (post) {
