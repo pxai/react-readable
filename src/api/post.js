@@ -41,6 +41,16 @@ const Post = function () {
     .then((result) => console.log(result.json()) )
   }
 
+  this.vote = function (id) {
+    fetch(url + '/posts', {
+        method: 'POST',        
+        body: id,
+        headers: RequestHeaders
+      }
+    )
+    .then((result) => console.log(result.json()) )
+  }
+
   this.update = function (post, id) {
     fetch(url +'/posts/' + id, {
         method: 'PUT',         

@@ -40,6 +40,16 @@ const Comment = function () {
     .then((result) => console.log(result.json()) )
   }
 
+  this.vote = function (id) {
+    fetch(url + '/comments', {
+        method: 'POST', 
+        body: id,
+        headers: RequestHeaders
+      }
+    )
+    .then((result) => console.log(result.json()) )
+  }
+
   this.update = function (comment, id) {
     fetch(url +'/comments/' + id, {
         method: 'PUT', 
