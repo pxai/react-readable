@@ -29,7 +29,7 @@ export function addComment(comment) {
 export function deleteComment(id) {
     return {
         type: DELETE_COMMENT,
-        comment
+        id
     }
 }
 

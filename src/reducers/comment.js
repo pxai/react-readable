@@ -11,13 +11,13 @@ import {
     comments: []
   };
   
-  export default function todoList (state = initialCommentsState, action) {
+  export default function comment (state = initialCommentsState, action) {
   
     switch (action.type) {
       case GET_COMMENTS:
         return state;
       case GET_COMMENT:
-        return state.comments.filter(elem => elem.id == action.id);
+        return state.comments.filter(elem => elem.id === action.id);
       case ADD_COMMENT:
         return {
             ...state, 

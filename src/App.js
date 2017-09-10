@@ -1,12 +1,15 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
+
 import './App.css';
-import  { Category, Comment, Post }  from './api';
+import  { getCategoriesAsync }  from './actions/category';
 
 class App extends Component {
   render() {
-    Category.getAll();
+    console.log('Props', this.props)
+    this.props.getCategories()
     return (
       <div className="app">
         <div className="list-books">
@@ -38,4 +41,22 @@ class App extends Component {
   }
 }
 
-export default App;
+// maps Redux state to our props
+function mapStateToProps (state, props) {
+  return {
+    posts: state.posts,
+    comments: state.comments,
+    categories: state.categories
+  }
+}
+
+function mapDispatchToProps (dispatch, props) {
+  return {
+    getCategories: () => getCategoriesAsync()
+  }
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App)

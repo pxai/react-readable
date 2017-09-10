@@ -4,13 +4,12 @@ const url = 'http://localhost:3001';
 
 const Category = function () {
     this.getAll = function () {
-      fetch(url + '/categories', {
-          method: 'GET', 
-          headers: RequestHeaders
-        }
-      )
-      .then((result) => console.log(result.json()) )
-   }
+      return fetch(url + '/categories', {
+                  method: 'GET', 
+                  headers: RequestHeaders
+                }
+            )
+    }
 
 }
 

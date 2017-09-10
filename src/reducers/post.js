@@ -11,13 +11,13 @@ import {
     posts: []
   };
   
-  export default function todoList (state = initialPostsState, action) {
+  export default function post (state = initialPostsState, action) {
   
     switch (action.type) {
       case GET_POSTS:
         return state;
       case GET_POST:
-        return state.posts.filter(elem => elem.id == action.id);
+        return state.posts.filter(elem => elem.id === action.id);
       case ADD_POST:
         return {
             ...state, 

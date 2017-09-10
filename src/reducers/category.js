@@ -6,10 +6,12 @@ import {
     categories: []
   };
   
-  export default function categoryList (state = initialCategoriesState, action) {
+  export default function category (state = initialCategoriesState, action) {
     switch (action.type) {
       case GET_CATEGORIES:
-        return state;
+        return {
+              posts: action.categories
+        };
       default: 
           return state;
     }
