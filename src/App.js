@@ -31,20 +31,27 @@ class App extends Component {
 
         <Route path="/" exact render={() => (
           <div>
-            <h1>Home</h1>
-              <div className="categories">Categories: 
+            <h2>Posts</h2>
+            <div className="row">
+              <div className="three columns">
+                <a className="button primary-button">+ Add Post</a>
+              </div>
+              <div className="categories eight columns">Categories: 
                 { 
                    this.props.categories.map((category) =>
                    (
-                           <span key={category.name}>{category.name}</span>
+                        <a className="category" href="#">
+                            <span key={category.name}>{category.name}</span>
+                           </a>
+
                    ))}
               </div>
-            
+              </div>     
               <div className="posts">
               { 
-                  this.props.posts.map((post) =>
-                (
-                            <Post  post={post}  />
+                this.props.posts.map((post) =>
+                    (
+                                <Post  post={post}  />
             ))}
               </div>
             
@@ -60,7 +67,7 @@ class App extends Component {
           <About />
         )}/>
         <div className="open-search">
-              <Link to='/' >Home</Link>
+              <Link to='/' className='button button-primary'>Home</Link>
             </div>
             <div className="open-search">
               <Link to='/posts' >Posts</Link>
@@ -80,7 +87,7 @@ class App extends Component {
 // maps Redux state to our props
 function mapStateToProps (state, props) {
   return {
-    posts: state.post,
+    posts: state.post.posts,
     comments: state.comments,
     categories: state.category.categories
   }

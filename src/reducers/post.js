@@ -15,7 +15,7 @@ import {
     console.log('Reducer: ' , action);
     switch (action.type) {
       case GET_POSTS:
-        return action.posts;
+        return { posts: action.posts};
       case GET_POST:
         return state.posts.filter(elem => elem.id === action.id);
       case ADD_POST:

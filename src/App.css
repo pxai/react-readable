@@ -22,3 +22,13 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
+
+.category {
+  display: inline-block;
+  margin-left: 2em;
+}
+
+.category:hover {
+background-color: darkslategray;
+color: #a1a1a1;
+}
