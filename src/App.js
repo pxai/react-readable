@@ -1,15 +1,49 @@
 import React, { Component } from 'react';
+import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { Route } from 'react-router-dom';
 import About  from './components/About';
 import Post  from './components/Post';
+import PostModal from './components/PostModal';
 import './App.css';
 import  { getCategoriesAsync }  from './actions/category';
-import  { getPostsAsync }  from './actions/post';
+import  { getPostsAsync, addPostAsync }  from './actions/post';
 
 class App extends Component {
-  
+  state = {
+    postModalOpen: false,
+    commentModalOpen: false
+  }
+
+  openPostModal = () => { this.setState(() => ({ postModalOpen: true})) }
+
+  closePostModal = () => {
+    this.setState(() => ({
+      postModalOpen: false,
+      commentModalOpen: false
+    }))
+  }
+
+  openCommentModal = () => {
+    this.setState(() => ({
+      postModalOpen: false,
+      commentModalOpen: true
+    }))
+  }
+
+  closeCommentModal = () => {
+    this.setState(() => ({
+      postModalOpen: false,
+      commentModalOpen: false
+    }))
+  }
+
+  addPost = (post) => {
+    console.log('App addPost: ',post);
+    this.props.addPost(post);//.then(p => console.log('App post created', p))
+  }
+
   componentDidMount() {
     this.props.getCategories()
     this.props.getPosts()
@@ -34,13 +68,17 @@ class App extends Component {
             <h2>Posts</h2>
             <div className="row">
               <div className="three columns">
-                <a className="button primary-button">+ Add Post</a>
+              <button
+                className="button primary-button"
+                onClick={this.openPostModal}>
+                 + Add Post
+              </button>
               </div>
               <div className="categories eight columns">Categories: 
                 { 
                    this.props.categories.map((category) =>
                    (
-                        <a className="category" href="#">
+                        <a className="category" href="">
                             <span key={category.name}>{category.name}</span>
                            </a>
 
@@ -57,6 +95,7 @@ class App extends Component {
             
           </div>
         )}/>
+
         <Route path="/posts" exact render={({history}) => (
           <h1>Posts</h1>
         )}/>
@@ -66,19 +105,28 @@ class App extends Component {
         <Route path='/about' render={({ history }) => (
           <About />
         )}/>
-        <div className="open-search">
-              <Link to='/' className='button button-primary'>Home</Link>
-            </div>
-            <div className="open-search">
+        <span >
+              <Link to='/'>Home</Link>
+            </span>
+            <span >
               <Link to='/posts' >Posts</Link>
-            </div>
-            <div className="open-create">
+              </span>
+            <span >
               <Link to='/comments'>Comments</Link>
-            </div>
-            <div className="open-create">
+              </span>
+            <span >
               <Link to='/about'>About</Link>
-            </div>
+              </span>
         </div>
+        <Modal
+          className='modal'
+          overlayClassName='overlay'
+          isOpen={this.state.postModalOpen}
+          onRequestClose={this.closePostModal}
+          contentLabel='Modal'
+        >
+         <PostModal onCreatePost={this.addPost} categories={this.props.categories} />
+        </Modal>
       </div>
     );
   }
@@ -96,7 +144,8 @@ function mapStateToProps (state, props) {
 function mapDispatchToProps (dispatch) {
   return {
     getCategories: () => dispatch(getCategoriesAsync()),
-    getPosts: () => dispatch(getPostsAsync())
+    getPosts: () => dispatch(getPostsAsync()),
+    addPost: (post) => dispatch(addPostAsync(post))
   }
 }
 

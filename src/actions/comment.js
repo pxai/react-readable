@@ -1,3 +1,5 @@
+import  { Comment }  from '../api';
+
 export const GET_COMMENT = 'GET_COMMENT'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
@@ -12,11 +14,17 @@ export function getComment(id) {
     }
 }
 
-export function getComments(id) {
+export function getByPost(comments) {
     return {
         type: GET_COMMENTS,
-        id
+        comments
     }
+}
+
+export function getByPostAsync() {
+    return dispatch => (
+        Comment.getByPost().then(comments => dispatch(getByPost(comments)))
+    )
 }
 
 export function addComment(comment) {

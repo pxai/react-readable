@@ -15,7 +15,7 @@ import {
   
     switch (action.type) {
       case GET_COMMENTS:
-        return state;
+        return { comments: action.comments };
       case GET_COMMENT:
         return state.comments.filter(elem => elem.id === action.id);
       case ADD_COMMENT:

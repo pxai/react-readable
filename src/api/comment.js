@@ -9,7 +9,7 @@ const Comment = function () {
           headers: RequestHeaders
         }
       )
-      .then((result) => console.log(result.json()) )
+        .then(result => result.json())
    }
 
    this.get = function (id) {
@@ -18,7 +18,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
    this.getByPost = function (id) {
@@ -27,7 +27,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
   this.create = function (comment) {
@@ -37,7 +37,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
   this.vote = function (id) {
@@ -47,7 +47,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
   this.update = function (comment, id) {
@@ -57,7 +57,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
   this.delete = function (id) {
@@ -66,7 +66,7 @@ const Comment = function () {
         headers: RequestHeaders
       }
     )
-    .then((result) => console.log(result.json()) )
+    .then(result => result.json())
   }
 
 }

@@ -37,10 +37,17 @@ export function getPostByCategory(category) {
 }
 
 export function addPost(post) {
+    console.log('Post created', post);
     return {
         type: ADD_POST,
         post
     }
+}
+
+export function addPostAsync(post) {
+    return dispatch => (
+        Post.create(post).then(() => dispatch(addPost(post)))
+    )
 }
 
 export function deletePost(id) {
