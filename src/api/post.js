@@ -34,7 +34,7 @@ const Post = function () {
   this.create = function (post) {
     return fetch(url + '/posts', {
         method: 'POST',        
-        body: post,
+        body: JSON.stringify(post),
         headers: RequestHeaders
       }
     )

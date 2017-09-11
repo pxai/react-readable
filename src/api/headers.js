@@ -1,5 +1,6 @@
 const RequestHeaders = new Headers({
-  'Content-Type': 'text/plain',
+  'Accept': 'application/json, text/plain, */*',
+  'Content-Type': 'application/json',
   'Authorization': 'whatever-you-want' 
 });
 
