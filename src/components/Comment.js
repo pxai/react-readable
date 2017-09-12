@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import Timestamp from 'react-timestamp';
 
 class Comment extends Component {
 

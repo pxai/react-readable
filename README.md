@@ -7,9 +7,10 @@ A simple app to manage posts, comments, votes, etc.
 ### Download code
 From this repo:
 ```
+git clone https://github.com/pxai/react-readable.git
 ```
 ### Install packages
-Install packages: 
+Enter the directory of the project and just install packages: 
 ```
 npm install
 ```

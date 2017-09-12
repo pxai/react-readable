@@ -33,6 +33,8 @@ import {
                 action.comment
             ]
         };
+      case VOTE_COMMENT:
+        return state;
       case DELETE_COMMENT:
         return state.comments.filter(elem => elem.id !== action.id);
       case UPDATE_COMMENT:

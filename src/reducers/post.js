@@ -24,6 +24,8 @@ import {
                 action.post
             ]
         };
+      case VOTE_POST:
+        return state;
       case DELETE_POST:
         return state.posts.filter(elem => elem.id !== action.id);
       case UPDATE_POST:

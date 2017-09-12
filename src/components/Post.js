@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
 import  { getCategoriesAsync }  from '../actions/category';
 import  { getByPostAsync, addCommentAsync }  from '../actions/comment';
-import Timestamp from 'react-timestamp';
 import Comment from './Comment';
 
 class Post extends Component {

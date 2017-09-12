@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import serializeForm from 'form-serialize';
-import  { uuid ,uniqueId}  from '../utils/uuid'
+import  { uuid }  from '../utils/uuid'
 
 class CommentModal extends Component {
 
@@ -17,7 +17,6 @@ class CommentModal extends Component {
   }
 
   render() {
-    const post = this.props.post;
     return (
       <div>
       <h3 className='subheader'>
