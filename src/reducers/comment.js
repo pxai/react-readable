@@ -15,15 +15,22 @@ import {
   
     switch (action.type) {
       case GET_COMMENTS:
-        return { comments: action.comments };
+        if (action.comments.length > 0) {
+          var newComments = state.comments.concat(action.comments);
+                    return {
+                        ...state,
+                        comments: newComments
+                    };
+        } else {  
+          return state;
+        }
       case GET_COMMENT:
         return state.comments.filter(elem => elem.id === action.id);
       case ADD_COMMENT:
-        return {
-            ...state, 
+          return {
               comments: [
                 ...state.comments,
-                action.comments
+                action.comment
             ]
         };
       case DELETE_COMMENT:

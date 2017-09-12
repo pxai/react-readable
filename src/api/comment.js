@@ -33,12 +33,13 @@ const Comment = function () {
   this.create = function (comment) {
     return fetch(url + '/comments', {
         method: 'POST', 
-        body: comment,
+        body: JSON.stringify(comment),
         headers: RequestHeaders
       }
     )
     .then(result => result.json())
   }
+
 
   this.vote = function (id) {
     return fetch(url + '/comments', {

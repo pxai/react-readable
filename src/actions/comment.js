@@ -14,16 +14,17 @@ export function getComment(id) {
     }
 }
 
-export function getByPost(comments) {
+export function getByPost(postId,comments) {
     return {
         type: GET_COMMENTS,
+        postId,
         comments
     }
 }
 
-export function getByPostAsync() {
+export function getByPostAsync(id) {
     return dispatch => (
-        Comment.getByPost().then(comments => dispatch(getByPost(comments)))
+        Comment.getByPost(id).then(comments => dispatch(getByPost(id,comments)))
     )
 }
 
@@ -32,6 +33,13 @@ export function addComment(comment) {
         type: ADD_COMMENT,
         comment
     }
+}
+
+export function addCommentAsync(comment) {
+    console.log('Action> Comment created', comment);
+    return dispatch => (
+        Comment.create(comment).then(() => dispatch(addComment(comment)))
+    )
 }
 
 export function deleteComment(id) {

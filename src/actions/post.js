@@ -37,7 +37,6 @@ export function getPostByCategory(category) {
 }
 
 export function addPost(post) {
-    console.log('Post created', post);
     return {
         type: ADD_POST,
         post

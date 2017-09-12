@@ -2,51 +2,42 @@ import React, { Component } from 'react'
 import serializeForm from 'form-serialize';
 import  { uuid ,uniqueId}  from '../utils/uuid'
 
-class PostModal extends Component {
+class CommentModal extends Component {
+
   handleSubmit =  (e) => {
     e.preventDefault();
     const values = serializeForm(e.target, {hash: true});
     console.log(values);
     values.timestamp = +Date.now();   // + makes valueOf to be returned
-    values.id = uniqueId();
-    if (this.props.onCreatePost)
-        this.props.onCreatePost(values);
+    values.id = uuid();
+    values.parentId = this.props.post.id;
+    if (this.props.onCreateComment)
+        this.props.onCreateComment(values);
 
-    this.props.closePostModal();
+    this.props.closeCommentModal();
   }
 
   render() {
-    const categories = this.props.categories;
+    const post = this.props.post;
+    console.log('Comments modal, for post: ', post);
     return (
       <div>
       <h3 className='subheader'>
-        Insert new Post
+        Add new comment
       </h3>
       <form onSubmit={this.handleSubmit}>
-        <div >
-            <label for="title">Title</label>
-            <input class="u-full-width" placeholder="Post title here..." name="title" id="title" type="text" />
-        </div>
         <div>
             <label for="author">Author</label>
             <input class="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
-        </div>
-        <div class="six columns">
-              <label for="categoryName">Category</label>
-              <select class="u-full-width" id="categoryName" name="category">
-              {categories.map((category) => (
-                <option value={category.name}>{category.name}</option>
-                ))}
-              </select>
         </div>
         <div>    
             <label for="body">Post body</label>
             <textarea class="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
         </div>
         <div>
-        <button>Save post</button>
+        <button>Save comment</button>
         </div>
-</form>
+      </form>
 
     </div>
     )
@@ -54,4 +45,4 @@ class PostModal extends Component {
 }
 
 
-export default PostModal;
+export default CommentModal;

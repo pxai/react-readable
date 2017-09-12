@@ -10,34 +10,20 @@ import './App.css';
 import  { getCategoriesAsync }  from './actions/category';
 import  { getPostsAsync, addPostAsync }  from './actions/post';
 
+
 class App extends Component {
   state = {
-    postModalOpen: false,
-    commentModalOpen: false
+    postModalOpen: false
   }
 
   openPostModal = () => { this.setState(() => ({ postModalOpen: true})) }
 
   closePostModal = () => {
     this.setState(() => ({
-      postModalOpen: false,
-      commentModalOpen: false
+      postModalOpen: false
     }))
   }
 
-  openCommentModal = () => {
-    this.setState(() => ({
-      postModalOpen: false,
-      commentModalOpen: true
-    }))
-  }
-
-  closeCommentModal = () => {
-    this.setState(() => ({
-      postModalOpen: false,
-      commentModalOpen: false
-    }))
-  }
 
   addPost = (post) => {
     console.log('App addPost: ',post);
@@ -47,10 +33,7 @@ class App extends Component {
   componentDidMount() {
     this.props.getCategories()
     this.props.getPosts()
-   /* .then((posts) => this.setState(() => ({
-      posts,
-      loadingFood: false,
-    })))*/
+
   }
 
   render() {
@@ -69,7 +52,7 @@ class App extends Component {
             <div className="row">
               <div className="three columns">
               <button
-                className="button primary-button"
+                className="buttton-primary"
                 onClick={this.openPostModal}>
                  + Add Post
               </button>
@@ -89,7 +72,7 @@ class App extends Component {
               { 
                 this.props.posts.map((post) =>
                     (
-                                <Post  post={post}  />
+                                <Post  key={post.id} post={post}  />
             ))}
               </div>
             
@@ -125,7 +108,7 @@ class App extends Component {
           onRequestClose={this.closePostModal}
           contentLabel='Modal'
         >
-         <PostModal onCreatePost={this.addPost} categories={this.props.categories} />
+         <PostModal onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
         </Modal>
       </div>
     );
