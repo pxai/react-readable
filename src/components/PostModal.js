@@ -1,12 +1,11 @@
 import React, { Component } from 'react'
 import serializeForm from 'form-serialize';
-import  { uuid ,uniqueId}  from '../utils/uuid'
+import  {uniqueId}  from '../utils/uuid'
 
 class PostModal extends Component {
   handleSubmit =  (e) => {
     e.preventDefault();
     const values = serializeForm(e.target, {hash: true});
-    console.log(values);
     values.timestamp = +Date.now();   // + makes valueOf to be returned
     values.id = uniqueId();
     if (this.props.onCreatePost)

@@ -12,7 +12,6 @@ import {
   };
   
   export default function post (state = initialPostsState, action) {
-    console.log('Post Reducer: ' , action);
     switch (action.type) {
       case GET_POSTS:
         return { posts: action.posts};

@@ -26,21 +26,20 @@ class Post extends Component {
   }
 
   addComment = (comment) => {
-    console.log('App addComment: ',comment);
-    this.props.addComment(comment);//.then(p => console.log('App post created', p))
+
+    this.props.addComment(comment);
   }
 
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
   }
   componentDidMount() {
-    this.props.getCategories().then( categories => console.log('In component',categories.categories.categories))
+    this.props.getCategories();
     this.props.getByPost(this.props.post.id)
   }
 
   render() {
     const post = this.props.post;
-    console.log('Comments grabbed: ',this.props.comments)
 
     return (
       <div className='post'>

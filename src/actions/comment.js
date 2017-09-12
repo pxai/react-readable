@@ -36,7 +36,6 @@ export function addComment(comment) {
 }
 
 export function addCommentAsync(comment) {
-    console.log('Action> Comment created', comment);
     return dispatch => (
         Comment.create(comment).then(() => dispatch(addComment(comment)))
     )

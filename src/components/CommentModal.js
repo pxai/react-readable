@@ -7,7 +7,6 @@ class CommentModal extends Component {
   handleSubmit =  (e) => {
     e.preventDefault();
     const values = serializeForm(e.target, {hash: true});
-    console.log(values);
     values.timestamp = +Date.now();   // + makes valueOf to be returned
     values.id = uuid();
     values.parentId = this.props.post.id;
@@ -19,7 +18,6 @@ class CommentModal extends Component {
 
   render() {
     const post = this.props.post;
-    console.log('Comments modal, for post: ', post);
     return (
       <div>
       <h3 className='subheader'>

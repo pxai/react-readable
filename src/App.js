@@ -26,8 +26,7 @@ class App extends Component {
 
 
   addPost = (post) => {
-    console.log('App addPost: ',post);
-    this.props.addPost(post);//.then(p => console.log('App post created', p))
+    this.props.addPost(post);
   }
 
   componentDidMount() {
@@ -37,7 +36,6 @@ class App extends Component {
   }
 
   render() {
-    console.log('Props', this.props)
 
     return (
       <div className="app">
