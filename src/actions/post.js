@@ -56,6 +56,13 @@ export function deletePost(id) {
     }
 }
 
+
+export function deletePostAsync(id) {
+    return dispatch => (
+        Post.delete(id).then((id) => dispatch(deletePost(id)))
+    )
+}
+
 export function updatePost (post) {
     return {
         type: UPDATE_POST,

@@ -8,7 +8,7 @@ import Post  from './components/Post';
 import PostModal from './components/PostModal';
 import './App.css';
 import  { getCategoriesAsync }  from './actions/category';
-import  { getPostsAsync, addPostAsync }  from './actions/post';
+import  { getPostsAsync, addPostAsync, deletePostAsync }  from './actions/post';
 
 
 class App extends Component {
@@ -28,6 +28,12 @@ class App extends Component {
   addPost = (post) => {
     this.props.addPost(post);
   }
+  
+  /*
+  deletePost = (id) => {
+    console.log('Deleting post ', id);
+    this.props.deletePost(id);
+  }*/
 
   componentDidMount() {
     this.props.getCategories()
@@ -59,9 +65,11 @@ class App extends Component {
                 { 
                    this.props.categories.map((category) =>
                    (
-                        <a className="category" href="">
-                            <span key={category.name}>{category.name}</span>
+                        <span key={category.name}>
+                          <a className="category" href="">
+                            <span>{category.name}</span>
                            </a>
+                        </span>
 
                    ))}
               </div>
@@ -70,7 +78,7 @@ class App extends Component {
               { 
                 this.props.posts.map((post) =>
                     (
-                                <Post  key={post.id} post={post}  />
+                                <Post  key={post.id} post={post} />
             ))}
               </div>
             
@@ -117,7 +125,7 @@ class App extends Component {
 function mapStateToProps (state, props) {
   return {
     posts: state.post.posts,
-    comments: state.comments,
+    comments: state.comment.comments,
     categories: state.category.categories
   }
 }
@@ -126,7 +134,8 @@ function mapDispatchToProps (dispatch) {
   return {
     getCategories: () => dispatch(getCategoriesAsync()),
     getPosts: () => dispatch(getPostsAsync()),
-    addPost: (post) => dispatch(addPostAsync(post))
+    addPost: (post) => dispatch(addPostAsync(post)),
+    deletePost: (id) => dispatch(deletePostAsync(id)),
   }
 }
 

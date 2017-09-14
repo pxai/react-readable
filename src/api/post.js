@@ -66,8 +66,7 @@ const Post = function () {
         method: 'DELETE', 
         headers: RequestHeaders
       }
-    )
-    .then(result => result.json() )
+    ).then(id )
   }
 }
 

@@ -36,7 +36,9 @@ import {
       case VOTE_COMMENT:
         return state;
       case DELETE_COMMENT:
-        return state.comments.filter(elem => elem.id !== action.id);
+      console.log('Deleting: ', action.id);
+        let newAr = state.comments.filter(elem => elem.id !== action.id);
+        return { comments: newAr };
       case UPDATE_COMMENT:
         return state.comments.map( (elem) => {
                   if(elem.id !== action.comment.id) {

@@ -24,12 +24,12 @@ class CommentModal extends Component {
       </h3>
       <form onSubmit={this.handleSubmit}>
         <div>
-            <label for="author">Author</label>
-            <input class="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
+            <label htmlFor="author">Author</label>
+            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
         </div>
         <div>    
-            <label for="body">Post body</label>
-            <textarea class="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
+            <label htmlFor="body">Post body</label>
+            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
         </div>
         <div>
         <button>Save comment</button>

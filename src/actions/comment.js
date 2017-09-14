@@ -48,6 +48,12 @@ export function deleteComment(id) {
     }
 }
 
+export function deleteCommentAsync(id) {
+    return dispatch => (
+        Comment.delete(id).then(() => dispatch(deleteComment(id)))
+    )
+}
+
 export function updateComment (comment) {
     return {
         type: UPDATE_COMMENT,

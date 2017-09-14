@@ -66,8 +66,7 @@ const Comment = function () {
         method: 'DELETE', 
         headers: RequestHeaders
       }
-    )
-    .then(result => result.json())
+    );
   }
 
 }
