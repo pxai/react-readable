@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
-import  { getByPostAsync, addCommentAsync }  from '../actions/comment';
-import {deleteCommentAsync} from '../actions/comment'
+import  { getByPostAsync, addCommentAsync, deleteCommentAsync  }  from '../actions/comment';
 import Comment from './Comment';
 
 class Post extends Component {
@@ -28,13 +27,15 @@ class Post extends Component {
     this.props.addComment(comment);
   }  
   
-  deleteComment= (id) => {
+  deleteComment = (id) => {
     console.log('Delete this: ' , id);
     this.props.deleteComment(id);
   }
 
-
-  
+  deletePost= () => {
+    console.log('Delete this post: ' , this.props.post.id);
+    this.props.deletePost(this.props.post.id);
+  }
 
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
@@ -54,6 +55,7 @@ class Post extends Component {
            <div className='postData'>
            <i className="fa fa-star"></i> {post.voteScore} - <i className="fa fa-user"></i> {post.author}  -  
            - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
+           <a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a>
            </div>
 
           </div>

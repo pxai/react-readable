@@ -22,7 +22,7 @@ class Comment extends Component {
            <div className='postData'>
            <i className="fa fa-star"></i> {comment.voteScore} - <i className="fa fa-user"></i> {comment.author}  -  
            - <i className="fa fa-calendar"></i> {this.getReadableDate(comment.timestamp)} -
-           <button onClick={this.deleteComment}><i className="fa fa-trash"></i> delete</button>
+           <a onClick={this.deleteComment}><i className="fa fa-trash"></i> delete</a>
            </div>
           </div>
 

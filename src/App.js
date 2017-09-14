@@ -29,11 +29,11 @@ class App extends Component {
     this.props.addPost(post);
   }
   
-  /*
   deletePost = (id) => {
-    console.log('Deleting post ', id);
+    console.log('Delete post: ' , id);
     this.props.deletePost(id);
-  }*/
+  }
+  
 
   componentDidMount() {
     this.props.getCategories()
@@ -78,7 +78,7 @@ class App extends Component {
               { 
                 this.props.posts.map((post) =>
                     (
-                                <Post  key={post.id} post={post} />
+                                <Post  key={post.id} post={post} deletePost={this.deletePost} />
             ))}
               </div>
             
@@ -135,7 +135,7 @@ function mapDispatchToProps (dispatch) {
     getCategories: () => dispatch(getCategoriesAsync()),
     getPosts: () => dispatch(getPostsAsync()),
     addPost: (post) => dispatch(addPostAsync(post)),
-    deletePost: (id) => dispatch(deletePostAsync(id)),
+    deletePost: (id) => dispatch(deletePostAsync(id))
   }
 }
 

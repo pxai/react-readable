@@ -14,7 +14,7 @@ import {
   export default function post (state = initialPostsState, action) {
     switch (action.type) {
       case GET_POSTS:
-        return { posts: action.posts};
+        return { posts: action.posts.filter(elem => !elem.deleted)};
       case GET_POST:
         return state.posts.filter(elem => elem.id === action.id);
       case ADD_POST:
@@ -27,7 +27,8 @@ import {
       case VOTE_POST:
         return state;
       case DELETE_POST:
-        return state.posts.filter(elem => elem.id !== action.id);
+      console.log('Deleting post, reduced', action.id);
+        return { posts: state.posts.filter(elem => elem.id !== action.id) };
       case UPDATE_POST:
         return state.posts.map( (elem) => {
                   if(elem.id !== action.post.id) {

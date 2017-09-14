@@ -66,7 +66,7 @@ const Post = function () {
         method: 'DELETE', 
         headers: RequestHeaders
       }
-    ).then(id )
+    );
   }
 }
 

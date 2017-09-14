@@ -16,7 +16,7 @@ import {
     switch (action.type) {
       case GET_COMMENTS:
         if (action.comments.length > 0) {
-          var newComments = state.comments.concat(action.comments);
+          var newComments = state.comments.concat(action.comments.filter(elem => !elem.deleted));
                     return {
                         ...state,
                         comments: newComments
@@ -37,8 +37,7 @@ import {
         return state;
       case DELETE_COMMENT:
       console.log('Deleting: ', action.id);
-        let newAr = state.comments.filter(elem => elem.id !== action.id);
-        return { comments: newAr };
+        return { comments: state.comments.filter(elem => elem.id !== action.id) };
       case UPDATE_COMMENT:
         return state.comments.map( (elem) => {
                   if(elem.id !== action.comment.id) {
