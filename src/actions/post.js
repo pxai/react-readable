@@ -15,6 +15,7 @@ export function getPost(id) {
     }
 }
 
+
 export function getPosts(posts) {
     return {
         type: GET_POSTS,

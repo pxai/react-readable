@@ -4,13 +4,22 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentModal from './CommentModal';
 import  { getByPostAsync, addCommentAsync, deleteCommentAsync  }  from '../actions/comment';
+import  { getPost }  from '../actions/post';
 import Comment from './Comment';
 
 class Post extends Component {
+
   state = {
-    commentModalOpen: false
+    commentModalOpen: false,
+    post: 0,
+    test: ''
   }
 
+
+  constructor ({match}) {
+    super();
+    console.log('Yea: ', match.params.id);
+  }
 
   openCommentModal = () => {
     this.setState(() => ({
@@ -41,15 +50,22 @@ class Post extends Component {
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
   }
-  componentDidMount() {
-    this.props.getByPost(this.props.post.id)
+  
+  onCreateComment() {
+    const comments = this.props.getByPost(this.props.match.params.id);
+    const post = this.props.getPost(this.props.match.params.id);
+    console.log('Ok comments:', comments);
+    console.log('Ok post:', post);
+    //
   }
 
   render() {
+    console.log('Id post: ', this.props.match.params.id);
     const post = this.props.post;
+
     return (
       <div className='post'>
-          <h2><Link to={`/post/${post.id}`}>{post.title}</Link></h2>
+          <h2>{post.title}</h2>
           <div className='category'><i className="fa fa-tag"></i>  {post.category}</div>
           <div className='body'>
            {post.body}
@@ -92,13 +108,16 @@ class Post extends Component {
 // maps Redux state to our props
 function mapStateToProps (state, props) {
   console.log('No comment: ', state.comment.comments);
+
   return {
-    comments: state.comment.comments.filter(comment => comment.parentId === props.post.id )
+    posts: state.post.posts,
+    comments: state.comment.comments
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    getPost: (id) => dispatch(getPost(id)),
     getByPost: (id) => dispatch(getByPostAsync(id)),
     addComment: (comment) => dispatch(addCommentAsync(comment)),
     deleteComment: (id) => dispatch(deleteCommentAsync(id))
