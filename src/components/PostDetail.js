@@ -10,6 +10,7 @@ class Post extends Component {
 
   state = {
     commentModalOpen: false,
+    post: {}
   }
 
   constructor ({match}) {
@@ -37,11 +38,6 @@ class Post extends Component {
     this.props.deleteComment(id);
   }
 
-  deletePost= () => {
-    console.log('Delete this post: ' , this.props.post.id);
-    this.props.deletePost(this.props.post.id);
-  }
-
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
   }
@@ -49,10 +45,13 @@ class Post extends Component {
   onCreateComment() {
   }
 
+  componentDidMount() {
+  }
+
   render() {
 
-    //const comments = this.props.getByPost(this.props.match.params.id);
-    const post = this.props.posts.filter(elem => elem.id === this.props.match.params.id)[0];
+    const post = this.props.post;
+    const comments = this.props.comments;
 
     return (
       <div className='post'>
@@ -75,7 +74,10 @@ class Post extends Component {
                 <i className="fa fa-comments-o"></i>+ Add Comment
               </button>
               <div className="comments">
-              
+                {   comments.map((comment) =>
+                  (
+                      <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />
+                ))}
               </div>
           
           <Modal
@@ -94,9 +96,10 @@ class Post extends Component {
 
 // maps Redux state to our props
 function mapStateToProps (state, props) {
+  console.log('MApping: ', props)
   return {
-    posts: state.post.posts,
-    comments: state.comment.comments
+    post: state.post.posts.filter(p => p.id === props.match.params.id)[0],
+    comments: state.comment.comments.filter(p => p.parentId === props.match.params.id)
   }
 }
 

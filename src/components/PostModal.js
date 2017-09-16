@@ -23,24 +23,24 @@ class PostModal extends Component {
       </h3>
       <form onSubmit={this.handleSubmit}>
         <div >
-            <label for="title">Title</label>
-            <input class="u-full-width" placeholder="Post title here..." name="title" id="title" type="text" />
+            <label htmlFor="title">Title</label>
+            <input className="u-full-width" placeholder="Post title here..." name="title" id="title" type="text" />
         </div>
         <div>
-            <label for="author">Author</label>
-            <input class="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
+            <label htmlFor="author">Author</label>
+            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
         </div>
-        <div class="six columns">
-              <label for="categoryName">Category</label>
-              <select class="u-full-width" id="categoryName" name="category">
+        <div className="six columns">
+              <label htmlFor="categoryName">Category</label>
+              <select className="u-full-width" id="categoryName" name="category">
               {categories.map((category) => (
-                <option value={category.name}>{category.name}</option>
+                <option key={category.name} value={category.name}>{category.name}</option>
                 ))}
               </select>
         </div>
         <div>    
-            <label for="body">Post body</label>
-            <textarea class="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
+            <label htmlFor="body">Post body</label>
+            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
         </div>
         <div>
         <button>Save post</button>

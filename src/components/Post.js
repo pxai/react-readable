@@ -1,11 +1,20 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { getByPostAsync } from '../actions/comment';
 
 class Post extends Component {
 
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
+  }
+  deletePost= () => {
+    console.log('Delete this post: ' , this.props.post.id);
+    this.props.deletePost(this.props.post.id);
+  }
+
+  componentDidMount() {
+    this.props.getComments(this.props.post.id);
   }
 
   render() {
@@ -19,6 +28,7 @@ class Post extends Component {
            <div className='postData'>
            <i className="fa fa-star"></i> {post.voteScore} - <i className="fa fa-user"></i> {post.author}  -  
            - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
+           <a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a>
            </div>
           </div>
             <div className="comments">
@@ -41,6 +51,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
+    getComments: (id) => dispatch(getByPostAsync(id))
   }
 }
 

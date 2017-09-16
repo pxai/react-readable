@@ -4,9 +4,8 @@ import { connect } from 'react-redux';
 import Post  from './components/Post';
 import PostModal from './components/PostModal';
 import './App.css';
-import  { getCategoriesAsync }  from './actions/category';
 import  { getPostsAsync, addPostAsync, deletePostAsync }  from './actions/post';
-
+import  { getCategoriesAsync }  from './actions/category';
 
 class PostList extends Component {
   state = {
@@ -35,7 +34,6 @@ class PostList extends Component {
   componentDidMount() {
     this.props.getCategories()
     this.props.getPosts()
-
   }
 
   render() {
@@ -94,7 +92,6 @@ class PostList extends Component {
 function mapStateToProps (state, props) {
   return {
     posts: state.post.posts,
-    comments: state.comment.comments,
     categories: state.category.categories
   }
 }
