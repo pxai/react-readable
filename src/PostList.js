@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
-import { Route, Link } from 'react-router-dom';
-import About  from './components/About';
 import Post  from './components/Post';
 import PostModal from './components/PostModal';
 import './App.css';

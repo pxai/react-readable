@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom';
 import CommentModal from './CommentModal';
 import  { getByPostAsync, addCommentAsync, deleteCommentAsync  }  from '../actions/comment';
 import  { getPostAsync }  from '../actions/post';
@@ -11,8 +10,6 @@ class Post extends Component {
 
   state = {
     commentModalOpen: false,
-    post: 0,
-    test: ''
   }
 
   constructor ({match}) {
@@ -53,9 +50,8 @@ class Post extends Component {
   }
 
   render() {
-    console.log('Props[render]: ', this.props.match.params);
-    console.log('Id post: ', this.props.match.params.id);
-    const comments = this.props.getByPost(this.props.match.params.id);
+
+    //const comments = this.props.getByPost(this.props.match.params.id);
     const post = this.props.posts.filter(elem => elem.id === this.props.match.params.id)[0];
 
     return (
@@ -79,11 +75,7 @@ class Post extends Component {
                 <i className="fa fa-comments-o"></i>+ Add Comment
               </button>
               <div className="comments">
-              { 
-                this.props.comments.map((comment) =>
-                    (
-                                <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />
-            ))}
+              
               </div>
           
           <Modal
@@ -102,8 +94,6 @@ class Post extends Component {
 
 // maps Redux state to our props
 function mapStateToProps (state, props) {
-  console.log('No comment: ', state.comment.comments);
-
   return {
     posts: state.post.posts,
     comments: state.comment.comments

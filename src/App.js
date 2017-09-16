@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Route, Link } from 'react-router-dom';
 import About  from './components/About';
-import Post  from './components/Post';
 import PostDetail  from './components/PostDetail';
 import PostList  from './PostList';
 import './App.css';
