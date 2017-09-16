@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import CommentModal from './CommentModal';
 import  { getByPostAsync, addCommentAsync, deleteCommentAsync  }  from '../actions/comment';
-import  { getPost }  from '../actions/post';
+import  { getPostAsync }  from '../actions/post';
 import Comment from './Comment';
 
 class Post extends Component {
@@ -15,10 +15,8 @@ class Post extends Component {
     test: ''
   }
 
-
   constructor ({match}) {
     super();
-    console.log('Yea: ', match.params.id);
   }
 
   openCommentModal = () => {
@@ -52,16 +50,13 @@ class Post extends Component {
   }
   
   onCreateComment() {
-    const comments = this.props.getByPost(this.props.match.params.id);
-    const post = this.props.getPost(this.props.match.params.id);
-    console.log('Ok comments:', comments);
-    console.log('Ok post:', post);
-    //
   }
 
   render() {
+    console.log('Props[render]: ', this.props.match.params);
     console.log('Id post: ', this.props.match.params.id);
-    const post = this.props.post;
+    const comments = this.props.getByPost(this.props.match.params.id);
+    const post = this.props.posts.filter(elem => elem.id === this.props.match.params.id)[0];
 
     return (
       <div className='post'>
@@ -71,7 +66,7 @@ class Post extends Component {
            {post.body}
            <div className='postData'>
            <i className="fa fa-star"></i> {post.voteScore} - <i className="fa fa-user"></i> {post.author}  -  
-           - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
+           - <i className="fa fa-calendar"></i> this.getReadableDate(post.timestamp)
            <a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a>
            </div>
 
@@ -117,7 +112,7 @@ function mapStateToProps (state, props) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    getPost: (id) => dispatch(getPost(id)),
+    getPost: (id) => dispatch(getPostAsync(id)),
     getByPost: (id) => dispatch(getByPostAsync(id)),
     addComment: (comment) => dispatch(addCommentAsync(comment)),
     deleteComment: (id) => dispatch(deleteCommentAsync(id))

@@ -15,6 +15,11 @@ export function getPost(id) {
     }
 }
 
+export function getPostAsync(id) {
+    return dispatch => (
+        Post.get(id).then(post => post.id)
+    )
+}
 
 export function getPosts(posts) {
     return {
