@@ -1,6 +1,7 @@
 import {
     GET_POST,
     GET_POSTS,
+    GET_POSTS_BY_CATEGORY,
     ADD_POST,
     DELETE_POST,
     UPDATE_POST,
@@ -17,6 +18,8 @@ import {
         return { posts: action.posts.filter(elem => !elem.deleted)};
       case GET_POST:
         return state.posts.filter(elem => elem.id === action.id);
+      case GET_POSTS_BY_CATEGORY:
+        return { posts: state.posts.filter(elem => elem.category === action.category) };
       case ADD_POST:
         return {
               posts: [

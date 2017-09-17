@@ -17,17 +17,14 @@ class App extends Component {
             <div className="list-books-title">
               <h1>Pello's MyReads</h1>
             </div>
-
-        <Route exact path='/' component={PostList}/>  
-        <Route path='/post/:id' component={PostDetail} />
-        <Route path='/postList' component={PostList} />
-        <Route path='/about' component={About} />
-       
-
-        <div>
-          <Link to="/postList">Home</Link> | 
-          <Link to="/about">About</Link> | 
-        </div>
+            <div>
+              <Link to="/postList">Home</Link> | 
+              <Link to="/about">About</Link> | 
+            </div>
+          <Route exact path='/' component={PostList}/>  
+          <Route path='/post/:id' component={PostDetail} />
+          <Route path='/postList' component={PostList} />
+          <Route path='/about' component={About} />
         </div>
       </div>
     );

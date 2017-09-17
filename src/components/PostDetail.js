@@ -61,7 +61,7 @@ class Post extends Component {
            {post.body}
            <div className='postData'>
            <i className="fa fa-star"></i> {post.voteScore} - <i className="fa fa-user"></i> {post.author}  -  
-           - <i className="fa fa-calendar"></i> this.getReadableDate(post.timestamp)
+           - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
            <a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a>
            </div>
 

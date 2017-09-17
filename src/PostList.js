@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import Post  from './components/Post';
 import PostModal from './components/PostModal';
 import './App.css';
-import  { getPostsAsync, addPostAsync, deletePostAsync }  from './actions/post';
+import  { getPostsAsync, addPostAsync, deletePostAsync, getPostsByCategory }  from './actions/post';
 import  { getCategoriesAsync }  from './actions/category';
 
 class PostList extends Component {
   state = {
+    category: '',
     postModalOpen: false
   }
 
@@ -30,18 +31,31 @@ class PostList extends Component {
     this.props.deletePost(id);
   }
   
+  getByCategory = (e,category) => {
+    e.preventDefault();
+   // this.props.getPostsByCategory(category);
+    this.setState({category: category});
+  }
 
   componentDidMount() {
     this.props.getCategories()
     this.props.getPosts()
+
   }
 
   render() {
-
+    var postList;
+    if (this.state.category === '') {
+      postList = this.props.posts.map((post) => ( <Post  key={post.id} post={post} deletePost={this.deletePost} />)) ;
+    } else {
+      postList = this.props.posts
+                        .filter(post => post.category === this.state.category)
+                        .map(post => ( <Post  key={post.id} post={post} deletePost={this.deletePost} />)) ;
+    }
     return (
       <div className="app">
           <div>
-            <h2>Posts</h2>
+            <h2>Posts {this.state.category}</h2>
             <div className="row">
               <div className="three columns">
               <button
@@ -55,20 +69,17 @@ class PostList extends Component {
                    this.props.categories.map((category) =>
                    (
                         <span key={category.name}>
-                          <a className="category" href="">
+                          <a className="category" href="" onClick={(e) => this.getByCategory(e,category.name)}>
                             <span>{category.name}</span>
                            </a>
                         </span>
 
                    ))}
+                   <span>  <a className="category" href="" onClick={(e) => this.getByCategory(e,'')}><span>ALL</span></a> </span>
               </div>
               </div>     
               <div className="posts">
-              { 
-                this.props.posts.map((post) =>
-                    (
-                                <Post  key={post.id} post={post} deletePost={this.deletePost} />
-            ))}
+              {postList}
               </div>
             
           </div>
@@ -100,11 +111,12 @@ function mapDispatchToProps (dispatch) {
   return {
     getCategories: () => dispatch(getCategoriesAsync()),
     getPosts: () => dispatch(getPostsAsync()),
+    getPostsByCategory: (category) => dispatch(getPostsByCategory(category)),
     addPost: (post) => dispatch(addPostAsync(post)),
     deletePost: (id) => dispatch(deletePostAsync(id))
   }
 }
-
+   
 export default connect(
   mapStateToProps,
   mapDispatchToProps

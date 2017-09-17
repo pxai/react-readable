@@ -35,7 +35,7 @@ export function getPostsAsync() {
 }
 
 
-export function getPostByCategory(category) {
+export function getPostsByCategory(category) {
     return {
         type: GET_POSTS_BY_CATEGORY,
         category
