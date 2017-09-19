@@ -51,10 +51,10 @@ const Comment = function () {
     .then(result => result.json())
   }
 
-  this.update = function (comment, id) {
-    return fetch(url +'/comments/' + id, {
+  this.update = function (comment) {
+    return fetch(url +'/comments/' + comment.id, {
         method: 'PUT', 
-        body: comment,
+        body: JSON.stringify(comment),
         headers: RequestHeaders
       }
     )

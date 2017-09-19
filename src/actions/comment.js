@@ -61,6 +61,13 @@ export function updateComment (comment) {
     }
 }
 
+export function updateCommentAsync(comment) {
+    console.log('Updating comment : ', comment);
+    return dispatch => (
+        Comment.update(comment).then((comment) => dispatch(updateComment(comment)))
+    )
+}
+
 export function voteComment (comment) {
     return {
         type: VOTE_COMMENT,

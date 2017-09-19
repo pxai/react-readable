@@ -3,7 +3,7 @@ import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
 import PostModal from './PostModal';
-import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync  }  from '../actions/comment';
+import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync, updateCommentAsync  }  from '../actions/comment';
 import  { getPostAsync, votePostAsync, updatePostAsync }  from '../actions/post';
 import  { getCategoriesAsync }  from '../actions/category';
 import Comment from './Comment';
@@ -13,7 +13,9 @@ class Post extends Component {
   state = {
     postModalOpen: false,
     commentModalOpen: false,
-    post: {}
+    post: {},
+    comment: {},
+    commentUpdate: false
   }
 
   constructor ({match}) {
@@ -33,24 +35,31 @@ class Post extends Component {
   }
 
 
-  openCommentModal = () => {
+  openCommentModal = (comment, isUpdate) => {
+    console.log('WTF', isUpdate);
     this.setState(() => ({
-      commentModalOpen: true
+      commentModalOpen: true,
+      comment,
+      commentUpdate: isUpdate
     }))
   }
 
   closeCommentModal = () => {
     this.setState(() => ({
-      commentModalOpen: false
+      commentModalOpen: false,
+      comment: {},
+      commentUpdate: false
     }))
   }
 
   addComment = (comment) => {
-    this.props.addComment(comment);
+    if (this.state.commentUpdate)
+      this.props.updateComment(this.state.comment);
+    else
+      this.props.addComment(comment);
   }  
   
   deleteComment = (id) => {
-    console.log('Delete this: ' , id);
     this.props.deleteComment(id);
   }
 
@@ -64,7 +73,6 @@ class Post extends Component {
   }
 
   voteComment = (id, vote) => {
-    console.log('Voting comment: ', id, vote);
     let option = {option: vote};
     this.props.voteComment(id, option);
   }
@@ -107,13 +115,13 @@ class Post extends Component {
               <h4><i className="fa fa-comment"></i> Comments</h4>
               <button
                 className="button primary-button"
-                onClick={this.openCommentModal}>
+                onClick={() => this.openCommentModal({},false)}>
                 <i className="fa fa-comments-o"></i>+ Add Comment
               </button>
               <div className="comments">
                 {   comments.map((comment) =>
                   (
-                      <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} voteComment={this.voteComment} />
+                      <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} openCommentModal={(comment) => this.openCommentModal(comment, true)} voteComment={this.voteComment} />
                 ))}
               </div>
           
@@ -134,8 +142,9 @@ class Post extends Component {
           onRequestClose={this.closeCommentModal}
           contentLabel='Modal'
         >
-         <CommentModal post={post} onCreateComment={this.addComment} closeCommentModal={this.closeCommentModal} />
+         <CommentModal post={post} comment={this.state.comment} onCreateComment={this.addComment} closeCommentModal={this.closeCommentModal} />
         </Modal>
+
         </div>
     )
   }
@@ -157,6 +166,7 @@ function mapDispatchToProps (dispatch) {
     getPost: (id) => dispatch(getPostAsync(id)),
     getByPost: (id) => dispatch(getByPostAsync(id)),
     addComment: (comment) => dispatch(addCommentAsync(comment)),
+    updateComment: (comment) => dispatch(updateCommentAsync(comment)),
     deleteComment: (id) => dispatch(deleteCommentAsync(id)),
     votePost: (id, vote) => dispatch(votePostAsync(id,vote)),
     voteComment: (id, vote) => dispatch(voteCommentAsync(id,vote)),

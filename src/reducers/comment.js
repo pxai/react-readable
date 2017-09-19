@@ -52,18 +52,19 @@ import {
       console.log('Deleting: ', action.id);
         return { comments: state.comments.filter(elem => elem.id !== action.id) };
       case UPDATE_COMMENT:
-        return state.comments.map( (elem) => {
+        return { comments: 
+              state.comments.map( (elem) => {
                   if(elem.id !== action.comment.id) {
                       // This isn't the item we care about - keep it as-is
                       return elem;
-                  }
-                  
+                  } 
                   // Otherwise, this is the one we want - return an updated value
                   return {
                       ...elem,
                       ...action.comment
                   };    
-              });
+              })
+            };
       default: 
           return state;
     }

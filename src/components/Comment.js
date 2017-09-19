@@ -27,6 +27,9 @@ class Comment extends Component {
              <a  onClick={() => (this.props.voteComment(comment.id, 'upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
              <a  onClick={() => (this.props.voteComment(comment.id, 'downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
           </span>
+          <span className="span-button">
+             <a  onClick={() => this.props.openCommentModal(this.props.comment)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Update</a>
+          </span>
            </div>
           </div>
 

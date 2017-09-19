@@ -17,6 +17,7 @@ class CommentModal extends Component {
   }
 
   render() {
+    const comment = this.props.comment || { author: '', body: ''}
     return (
       <div>
       <h3 className='subheader'>
@@ -25,11 +26,11 @@ class CommentModal extends Component {
       <form onSubmit={this.handleSubmit}>
         <div>
             <label htmlFor="author">Author</label>
-            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
+            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" defaultValue={comment.author} />
         </div>
         <div>    
             <label htmlFor="body">Post body</label>
-            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
+            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body" defaultValue={comment.body} ></textarea>
         </div>
         <div>
         <button>Save comment</button>
