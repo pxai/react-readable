@@ -52,6 +52,7 @@ import {
       console.log('Deleting: ', action.id);
         return { comments: state.comments.filter(elem => elem.id !== action.id) };
       case UPDATE_COMMENT:
+      console.log('Updating: ', action.comment);
         return { comments: 
               state.comments.map( (elem) => {
                   if(elem.id !== action.comment.id) {
@@ -59,10 +60,7 @@ import {
                       return elem;
                   } 
                   // Otherwise, this is the one we want - return an updated value
-                  return {
-                      ...elem,
-                      ...action.comment
-                  };    
+                  return action.comment;    
               })
             };
       default: 

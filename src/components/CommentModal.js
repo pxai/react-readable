@@ -13,6 +13,7 @@ class CommentModal extends Component {
     if (this.props.onCreateComment)
         this.props.onCreateComment(values);
 
+    console.log('Values sent: ', values);
     this.props.closeCommentModal();
   }
 

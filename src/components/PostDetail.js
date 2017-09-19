@@ -53,8 +53,9 @@ class Post extends Component {
   }
 
   addComment = (comment) => {
+    console.log('The state is...', comment);
     if (this.state.commentUpdate)
-      this.props.updateComment(this.state.comment);
+      this.props.updateComment(comment);
     else
       this.props.addComment(comment);
   }  
