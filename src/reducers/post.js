@@ -28,7 +28,20 @@ import {
             ]
         };
       case VOTE_POST:
-        return state;
+        return { posts: 
+                  state.posts.map( (elem) => {
+                    if(elem.id !== action.post.id) {
+                        // This isn't the item we care about - keep it as-is
+                        return elem;
+                    }
+                    return action.post;
+                    // Otherwise, this is the one we want - return an updated value
+                    /*return {
+                        ...elem,
+                        voteScore: 666
+                    };*/    
+                })
+              };
       case DELETE_POST:
       console.log('Deleting post, reduced', action.id);
         return { posts: state.posts.filter(elem => elem.id !== action.id) };

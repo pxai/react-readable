@@ -76,16 +76,15 @@ export function updatePost (post) {
     }
 }
 
-export function votePost (id, vote) {
+export function votePost (post) {
     return {
         type: VOTE_POST,
-        id,
-        vote
+        post
     }
 }
 
 export function votePostAsync(id, vote) {
     return dispatch => (
-        Post.vote(id, vote).then(() => dispatch(votePost(id, vote)))
+        Post.vote(id, vote).then((post) => dispatch(votePost(post)))
     )
 }

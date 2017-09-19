@@ -61,15 +61,15 @@ export function updateComment (comment) {
     }
 }
 
-export function voteComment (id) {
+export function voteComment (comment) {
     return {
         type: VOTE_COMMENT,
-        id
+        comment
     }
 }
 
 export function voteCommentAsync(id, vote) {
     return dispatch => (
-        Comment.vote(id, vote).then(() => dispatch(voteComment(id, vote)))
+        Comment.vote(id, vote).then((comment) => dispatch(voteComment(comment)))
     )
 }
