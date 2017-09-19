@@ -40,11 +40,11 @@ class PostList extends Component {
   componentDidMount() {
     this.props.getCategories()
     this.props.getPosts()
-
   }
 
   render() {
     var postList;
+    const emptyPost = {id: 0, title: '', author: '', category: '', body: ''};
     if (this.state.category === '') {
       postList = this.props.posts.map((post) => ( <Post  key={post.id} post={post} deletePost={this.deletePost} />)) ;
     } else {
@@ -90,6 +90,7 @@ class PostList extends Component {
           overlayClassName='overlay'
           isOpen={this.state.postModalOpen}
           onRequestClose={this.closePostModal}
+          post={emptyPost}
           contentLabel='Modal'
         >
          <PostModal onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />

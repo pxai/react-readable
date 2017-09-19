@@ -7,7 +7,7 @@ class PostModal extends Component {
     e.preventDefault();
     const values = serializeForm(e.target, {hash: true});
     values.timestamp = +Date.now();   // + makes valueOf to be returned
-    values.id = uniqueId();
+    values.id = this.props.post?this.props.post.id:uniqueId();
     if (this.props.onCreatePost)
         this.props.onCreatePost(values);
 
@@ -15,6 +15,8 @@ class PostModal extends Component {
   }
 
   render() {
+    console.log('Loaded post', this.props.post);
+    const post = this.props.post || {id: 0, title: '', author: '', category: '', body: ''}
     const categories = this.props.categories;
     return (
       <div>
@@ -24,11 +26,11 @@ class PostModal extends Component {
       <form onSubmit={this.handleSubmit}>
         <div >
             <label htmlFor="title">Title</label>
-            <input className="u-full-width" placeholder="Post title here..." name="title" id="title" type="text" />
+            <input className="u-full-width" placeholder="Post title here..." name="title" id="title" defaultValue={post.title} type="text" />
         </div>
         <div>
             <label htmlFor="author">Author</label>
-            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" type="text" />
+            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" defaultValue={post.author} type="text" />
         </div>
         <div className="six columns">
               <label htmlFor="categoryName">Category</label>
@@ -40,7 +42,7 @@ class PostModal extends Component {
         </div>
         <div>    
             <label htmlFor="body">Post body</label>
-            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"></textarea>
+            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body">{post.body}</textarea>
         </div>
         <div>
         <button>Save post</button>

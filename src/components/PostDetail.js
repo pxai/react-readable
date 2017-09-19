@@ -2,13 +2,16 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
+import PostModal from './PostModal';
 import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync  }  from '../actions/comment';
 import  { getPostAsync, votePostAsync }  from '../actions/post';
+import  { getCategoriesAsync }  from '../actions/category';
 import Comment from './Comment';
 
 class Post extends Component {
 
   state = {
+    postModalOpen: false,
     commentModalOpen: false,
     post: {}
   }
@@ -16,6 +19,19 @@ class Post extends Component {
   constructor ({match}) {
     super();
   }
+
+  openPostModal = () => {
+    this.setState(() => ({
+      postModalOpen: true
+    }))
+  }
+
+  closePostModal = () => {
+    this.setState(() => ({
+      postModalOpen: false
+    }))
+  }
+
 
   openCommentModal = () => {
     this.setState(() => ({
@@ -53,6 +69,9 @@ class Post extends Component {
     return new Date(timestamp).toISOString()
   }
   
+  componentDidMount() {
+    this.props.getCategories()
+  }
 
   render() {
 
@@ -60,6 +79,7 @@ class Post extends Component {
     const comments = this.props.comments;
 
     return (
+
       <div className='post'>
           <h2>{post.title}</h2>
           <div className='category'><i className="fa fa-tag"></i>  {post.category}</div>
@@ -72,6 +92,9 @@ class Post extends Component {
            <span className="span-button">
              <a  onClick={() => (this.votePost('upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
              <a  onClick={() => (this.votePost('downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+          </span>
+          <span className="span-button">
+             <a  onClick={this.openPostModal}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Update</a>
           </span>
            </div>
 
@@ -93,6 +116,16 @@ class Post extends Component {
           <Modal
           className='modal'
           overlayClassName='overlay'
+          isOpen={this.state.postModalOpen}
+          onRequestClose={this.closePostModal}
+          contentLabel='Modal'
+        >
+         <PostModal onCreatePost={this.addPost} categories={this.props.categories} post={post} closePostModal={this.closePostModal} />
+        </Modal>
+
+          <Modal
+          className='modal'
+          overlayClassName='overlay'
           isOpen={this.state.commentModalOpen}
           onRequestClose={this.closeCommentModal}
           contentLabel='Modal'
@@ -109,12 +142,14 @@ function mapStateToProps (state, props) {
   console.log('MApping: ', props)
   return {
     post: state.post.posts.filter(p => p.id === props.match.params.id)[0],
-    comments: state.comment.comments.filter(p => p.parentId === props.match.params.id)
+    comments: state.comment.comments.filter(p => p.parentId === props.match.params.id),
+    categories: state.category.categories
   }
 }
 
 function mapDispatchToProps (dispatch) {
   return {
+    getCategories: () => dispatch(getCategoriesAsync()),
     getPost: (id) => dispatch(getPostAsync(id)),
     getByPost: (id) => dispatch(getByPostAsync(id)),
     addComment: (comment) => dispatch(addCommentAsync(comment)),
