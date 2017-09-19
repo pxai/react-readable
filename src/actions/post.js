@@ -76,6 +76,13 @@ export function updatePost (post) {
     }
 }
 
+export function updatePostAsync(post) {
+    console.log('Updating post : ', post);
+    return dispatch => (
+        Post.update(post).then((post) => dispatch(updatePost(post)))
+    )
+}
+
 export function votePost (post) {
     return {
         type: VOTE_POST,

@@ -52,9 +52,9 @@ const Post = function () {
   }
 
   this.update = function (post, option) {
-    return fetch(url +'/posts', {
+    return fetch(url +'/posts/' + post.id, {
         method: 'PUT',         
-        body: post,
+        body: JSON.stringify(post),
         headers: RequestHeaders
       }
     )

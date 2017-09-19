@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
 import PostModal from './PostModal';
 import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync  }  from '../actions/comment';
-import  { getPostAsync, votePostAsync }  from '../actions/post';
+import  { getPostAsync, votePostAsync, updatePostAsync }  from '../actions/post';
 import  { getCategoriesAsync }  from '../actions/category';
 import Comment from './Comment';
 
@@ -52,6 +52,10 @@ class Post extends Component {
   deleteComment = (id) => {
     console.log('Delete this: ' , id);
     this.props.deleteComment(id);
+  }
+
+  updatePost = (post) => {
+    this.props.updatePost(post);
   }
 
   votePost = (vote) => {
@@ -120,7 +124,7 @@ class Post extends Component {
           onRequestClose={this.closePostModal}
           contentLabel='Modal'
         >
-         <PostModal onCreatePost={this.addPost} categories={this.props.categories} post={post} closePostModal={this.closePostModal} />
+         <PostModal title="Update Post" onCreatePost={this.updatePost} categories={this.props.categories} post={post} closePostModal={this.closePostModal} />
         </Modal>
 
           <Modal
@@ -155,7 +159,8 @@ function mapDispatchToProps (dispatch) {
     addComment: (comment) => dispatch(addCommentAsync(comment)),
     deleteComment: (id) => dispatch(deleteCommentAsync(id)),
     votePost: (id, vote) => dispatch(votePostAsync(id,vote)),
-    voteComment: (id, vote) => dispatch(voteCommentAsync(id,vote))
+    voteComment: (id, vote) => dispatch(voteCommentAsync(id,vote)),
+    updatePost: (post) => dispatch(updatePostAsync(post))
   }
 }
 

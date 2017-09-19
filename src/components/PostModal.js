@@ -21,18 +21,18 @@ class PostModal extends Component {
     return (
       <div>
       <h3 className='subheader'>
-        Insert new Post
+        {this.props.title}
       </h3>
       <form onSubmit={this.handleSubmit}>
         <div >
             <label htmlFor="title">Title</label>
             <input className="u-full-width" placeholder="Post title here..." name="title" id="title" defaultValue={post.title} type="text" />
         </div>
-        <div>
+        <div className={ (post.id!==0)?'hidden-input':''}>
             <label htmlFor="author">Author</label>
-            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" defaultValue={post.author} type="text" />
+            <input className="u-full-width" placeholder="Put yout name" name="author" id="author" defaultValue={post.author} type="text"  />
         </div>
-        <div className="six columns">
+        <div className={ (post.id!==0)?'hidden-input':''}>
               <label htmlFor="categoryName">Category</label>
               <select className="u-full-width" id="categoryName" name="category">
               {categories.map((category) => (
@@ -42,10 +42,10 @@ class PostModal extends Component {
         </div>
         <div>    
             <label htmlFor="body">Post body</label>
-            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body">{post.body}</textarea>
+            <textarea className="u-full-width" placeholder="I'm Batman, I'm awesome..." id="body" name="body"  defaultValue={post.body}></textarea>
         </div>
         <div>
-        <button>Save post</button>
+        <button>{this.props.title}</button>
         </div>
 </form>
 

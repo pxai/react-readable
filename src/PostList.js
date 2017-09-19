@@ -93,7 +93,7 @@ class PostList extends Component {
           post={emptyPost}
           contentLabel='Modal'
         >
-         <PostModal onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
+         <PostModal  title="Create Post" onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
         </Modal>
       </div>
     );

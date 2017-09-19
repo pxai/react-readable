@@ -46,7 +46,8 @@ import {
       console.log('Deleting post, reduced', action.id);
         return { posts: state.posts.filter(elem => elem.id !== action.id) };
       case UPDATE_POST:
-        return state.posts.map( (elem) => {
+        return { posts: 
+                  state.posts.map( (elem) => {
                   if(elem.id !== action.post.id) {
                       // This isn't the item we care about - keep it as-is
                       return elem;
@@ -57,7 +58,8 @@ import {
                       ...elem,
                       ...action.post
                   };    
-              });
+              })
+            };
       default: 
           return state;
     }
