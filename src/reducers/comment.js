@@ -49,10 +49,8 @@ import {
       })
     };
       case DELETE_COMMENT:
-      console.log('Deleting: ', action.id);
         return { comments: state.comments.filter(elem => elem.id !== action.id) };
       case UPDATE_COMMENT:
-      console.log('Updating: ', action.comment);
         return { comments: 
               state.comments.map( (elem) => {
                   if(elem.id !== action.comment.id) {

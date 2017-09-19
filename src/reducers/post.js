@@ -43,7 +43,6 @@ import {
                 })
               };
       case DELETE_POST:
-      console.log('Deleting post, reduced', action.id);
         return { posts: state.posts.filter(elem => elem.id !== action.id) };
       case UPDATE_POST:
         return { posts: 

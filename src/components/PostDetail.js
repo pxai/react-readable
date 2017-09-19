@@ -36,7 +36,6 @@ class Post extends Component {
 
 
   openCommentModal = (comment, isUpdate) => {
-    console.log('WTF', isUpdate);
     this.setState(() => ({
       commentModalOpen: true,
       comment,
@@ -53,7 +52,6 @@ class Post extends Component {
   }
 
   addComment = (comment) => {
-    console.log('The state is...', comment);
     if (this.state.commentUpdate)
       this.props.updateComment(comment);
     else
@@ -153,7 +151,6 @@ class Post extends Component {
 
 // maps Redux state to our props
 function mapStateToProps (state, props) {
-  console.log('MApping: ', props)
   return {
     post: state.post.posts.filter(p => p.id === props.match.params.id)[0],
     comments: state.comment.comments.filter(p => p.parentId === props.match.params.id),
