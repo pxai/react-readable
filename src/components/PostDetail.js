@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import Modal from 'react-modal'
 import { connect } from 'react-redux';
 import CommentModal from './CommentModal';
-import  { getByPostAsync, addCommentAsync, deleteCommentAsync  }  from '../actions/comment';
-import  { getPostAsync }  from '../actions/post';
+import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync  }  from '../actions/comment';
+import  { getPostAsync, votePostAsync }  from '../actions/post';
 import Comment from './Comment';
 
 class Post extends Component {
@@ -38,15 +38,21 @@ class Post extends Component {
     this.props.deleteComment(id);
   }
 
+  votePost = (vote) => {
+    let option = {option: vote};
+    this.props.votePost(this.props.post.id, option);
+  }
+
+  voteComment = (id, vote) => {
+    console.log('Voting comment: ', id, vote);
+    let option = {option: vote};
+    this.props.voteComment(id, option);
+  }
+
   getReadableDate (timestamp) {
     return new Date(timestamp).toISOString()
   }
   
-  onCreateComment() {
-  }
-
-  componentDidMount() {
-  }
 
   render() {
 
@@ -62,7 +68,11 @@ class Post extends Component {
            <div className='postData'>
            <i className="fa fa-star"></i> {post.voteScore} - <i className="fa fa-user"></i> {post.author}  -  
            - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
-           <a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a>
+           <span className="span-button"><a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a></span>
+           <span className="span-button">
+             <a  onClick={() => (this.votePost('upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+             <a  onClick={() => (this.votePost('downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+          </span>
            </div>
 
           </div>
@@ -76,7 +86,7 @@ class Post extends Component {
               <div className="comments">
                 {   comments.map((comment) =>
                   (
-                      <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} />
+                      <Comment key={comment.id} comment={comment} deleteComment={this.deleteComment} voteComment={this.voteComment} />
                 ))}
               </div>
           
@@ -108,7 +118,9 @@ function mapDispatchToProps (dispatch) {
     getPost: (id) => dispatch(getPostAsync(id)),
     getByPost: (id) => dispatch(getByPostAsync(id)),
     addComment: (comment) => dispatch(addCommentAsync(comment)),
-    deleteComment: (id) => dispatch(deleteCommentAsync(id))
+    deleteComment: (id) => dispatch(deleteCommentAsync(id)),
+    votePost: (id, vote) => dispatch(votePostAsync(id,vote)),
+    voteComment: (id, vote) => dispatch(voteCommentAsync(id,vote))
   }
 }
 

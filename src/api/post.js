@@ -41,18 +41,18 @@ const Post = function () {
     .then(result => result.json() )
   }
 
-  this.vote = function (id) {
-    return fetch(url + '/posts', {
+  this.vote = function (id, vote) {
+    return fetch(url + '/posts/' + id, {
         method: 'POST',        
-        body: id,
+        body: JSON.stringify(vote),
         headers: RequestHeaders
       }
     )
     .then(result => result.json() )
   }
 
-  this.update = function (post, id) {
-    return fetch(url +'/posts/' + id, {
+  this.update = function (post, option) {
+    return fetch(url +'/posts', {
         method: 'PUT',         
         body: post,
         headers: RequestHeaders

@@ -41,10 +41,10 @@ const Comment = function () {
   }
 
 
-  this.vote = function (id) {
-    return fetch(url + '/comments', {
+  this.vote = function (id, vote) {
+    return fetch(url + '/comments/' + id, {
         method: 'POST', 
-        body: id,
+        body: JSON.stringify(vote),
         headers: RequestHeaders
       }
     )

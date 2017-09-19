@@ -67,3 +67,9 @@ export function voteComment (id) {
         id
     }
 }
+
+export function voteCommentAsync(id, vote) {
+    return dispatch => (
+        Comment.vote(id, vote).then(() => dispatch(voteComment(id, vote)))
+    )
+}

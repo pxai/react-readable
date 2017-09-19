@@ -69,3 +69,12 @@ color: #a1a1a1;
   color: gray;
   margin-bottom: 1em;
 }
+
+.span-button {
+  display: inline-block;
+  margin: 0em 1em;
+}
+
+.span-button  a {
+  margin: 0em 0.5em;
+}

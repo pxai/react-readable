@@ -23,6 +23,10 @@ class Comment extends Component {
            <i className="fa fa-star"></i> {comment.voteScore} - <i className="fa fa-user"></i> {comment.author}  -  
            - <i className="fa fa-calendar"></i> {this.getReadableDate(comment.timestamp)} -
            <a onClick={this.deleteComment}><i className="fa fa-trash"></i> delete</a>
+           <span className="span-button">
+             <a  onClick={() => (this.props.voteComment(comment.id, 'upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
+             <a  onClick={() => (this.props.voteComment(comment.id, 'downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+          </span>
            </div>
           </div>
 
