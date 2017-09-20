@@ -101,8 +101,8 @@ class Post extends Component {
            - <i className="fa fa-calendar"></i> {this.getReadableDate(post.timestamp)}
            <span className="span-button"><a  onClick={this.deletePost}><i className="fa fa-trash"></i> delete</a></span>
            <span className="span-button">
-             <a  onClick={() => (this.votePost('upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
-             <a  onClick={() => (this.votePost('downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+             <a  onClick={() => (this.votePost('upVote'))} title="vote up"><i className="fa fa-thumbs-o-up" aria-hidden="true" ></i>Up</a>
+             <a  onClick={() => (this.votePost('downVote'))} title="vote down"><i className="fa fa-thumbs-o-down" aria-hidden="true" ></i>Down</a>
           </span>
           <span className="span-button">
              <a  onClick={this.openPostModal}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Update</a>

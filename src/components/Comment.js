@@ -24,8 +24,8 @@ class Comment extends Component {
            - <i className="fa fa-calendar"></i> {this.getReadableDate(comment.timestamp)} -
            <a onClick={this.deleteComment}><i className="fa fa-trash"></i> delete</a>
            <span className="span-button">
-             <a  onClick={() => (this.props.voteComment(comment.id, 'upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i></a>
-             <a  onClick={() => (this.props.voteComment(comment.id, 'downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i></a>
+             <a  onClick={() => (this.props.voteComment(comment.id, 'upVote'))}><i className="fa fa-thumbs-o-up" aria-hidden="true"></i>Up</a>
+             <a  onClick={() => (this.props.voteComment(comment.id, 'downVote'))}><i className="fa fa-thumbs-o-down" aria-hidden="true"></i>Down</a>
           </span>
           <span className="span-button">
              <a  onClick={() => this.props.openCommentModal(this.props.comment)}><i className="fa fa-pencil-square-o" aria-hidden="true"></i> Update</a>

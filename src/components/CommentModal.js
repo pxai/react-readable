@@ -6,10 +6,18 @@ class CommentModal extends Component {
 
   handleSubmit =  (e) => {
     e.preventDefault();
-    const values = serializeForm(e.target, {hash: true});
-    values.timestamp = +Date.now();   // + makes valueOf to be returned
-    values.id = uuid();
-    values.parentId = this.props.post.id;
+    const values = serializeForm(e.target, {hash: true})
+    if (this.props.comment.id === undefined) {
+      console.log('Or coming here', this.props.comment);   
+      values.timestamp = +Date.now();   // + makes valueOf to be returned
+      values.id = uuid();
+      values.parentId = this.props.post.id;
+
+    } else {   
+      console.log('coming here', this.props.comment.id);
+      values.id = this.props.comment.id;
+    }
+
     if (this.props.onCreateComment)
         this.props.onCreateComment(values);
 
