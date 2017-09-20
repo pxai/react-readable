@@ -20,6 +20,7 @@ npm install
 For the backend you need to run this node-based backend:
 ```
 cd server
+npm install 
 node server.js
 ```
 See server/ folder for other instructions.
