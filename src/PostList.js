@@ -10,10 +10,27 @@ import  { getCategoriesAsync }  from './actions/category';
 class PostList extends Component {
   state = {
     category: '',
-    postModalOpen: false
+    posts: {},
+    postModalOpen: false,
+    sortByDate: 0,
+    sortByVotes: 0
   }
 
   openPostModal = () => { this.setState(() => ({ postModalOpen: true})) }
+
+  setSortByDate (e) {
+    e.preventDefault();
+    this.setState({ sortByVotes: 0}); 
+    const newValue = this.state.sortByDate===0?true:!this.state.sortByDate;
+    this.setState({ sortByDate: newValue}); 
+  }
+  
+  setSortByVotes (e) {
+    e.preventDefault();
+    this.setState({ sortByDate: 0}); 
+    const newValue = this.state.sortByVotes===0?true:!this.state.sortByVotes;
+    this.setState({ sortByVotes: newValue});
+  }
 
   closePostModal = () => {
     this.setState(() => ({
@@ -37,21 +54,40 @@ class PostList extends Component {
     this.setState({category: category});
   }
 
-  componentDidMount() {
+  componentWillMount() {
     this.props.getCategories()
     this.props.getPosts()
   }
 
   render() {
-    var postList;
+    var postListByCategory = {};
+    var tmpPostList = {};   
     const emptyPost = {id: 0, title: '', author: '', category: '', body: ''};
+
     if (this.state.category === '') {
-      postList = this.props.posts.map((post) => ( <Post  key={post.id} post={post} deletePost={this.deletePost} />)) ;
+      postListByCategory = this.props.posts;
     } else {
-      postList = this.props.posts
-                        .filter(post => post.category === this.state.category)
-                        .map(post => ( <Post  key={post.id} post={post} deletePost={this.deletePost} />)) ;
+      postListByCategory = this.props.posts.filter(post => post.category === this.state.category);
     }
+
+    if (this.state.sortByDate !== 0) {
+      if (this.state.sortByDate) {
+        tmpPostList = postListByCategory.sort((a, b) => a.timestamp < b.timestamp);
+      } else {
+        tmpPostList = postListByCategory.sort((a, b) => a.timestamp > b.timestamp);
+      }
+    } else if (this.state.sortByVotes !== 0) {
+      if (this.state.sortByVotes) {
+        tmpPostList = postListByCategory.sort((a, b) => a.voteScore < b.voteScore);
+      } else {
+        tmpPostList = postListByCategory.sort((a, b) => a.voteScore > b.voteScore);
+      }
+    } else {
+      tmpPostList = postListByCategory;
+    }
+
+    const postList = tmpPostList;
+
     return (
       <div className="app">
           <div>
@@ -64,7 +100,11 @@ class PostList extends Component {
                  + Add Post
               </button>
               </div>
-              <div className="categories eight columns">Categories: 
+              <div className="categories four columns">Sort by:  
+                <span className="span-button">  <a className="category" href="" onClick={(e) => this.setSortByDate(e)}>By date</a> </span>
+                <span className="span-button">  <a className="category" href="" onClick={(e) => this.setSortByVotes(e)}>By votes</a> </span>
+             </div>
+              <div className="categories five columns">Categories: 
                 { 
                    this.props.categories.map((category) =>
                    (
@@ -74,12 +114,17 @@ class PostList extends Component {
                            </a>
                         </span>
 
-                   ))}
-                   <span>  <a className="category" href="" onClick={(e) => this.getByCategory(e,'')}><span>ALL</span></a> </span>
+                   ))}         
               </div>
               </div>     
               <div className="posts">
-              {postList}
+              { 
+                   postList.map((post) =>
+                   (
+                    <Post  key={post.id} post={post} deletePost={this.deletePost} />
+                   ))
+                   }    
+
               </div>
             
           </div>
