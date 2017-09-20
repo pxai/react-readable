@@ -21,7 +21,7 @@ class Post extends Component {
     const post = this.props.post;
     return (
       <div className='post'>
-          <h2><Link to={`/post/${post.id}`}>{post.title}</Link></h2>
+          <h2><Link to={`/post/${post.category}/${post.id}`}>{post.title}</Link></h2>
           <div className='category'><i className="fa fa-tag"></i>  {post.category}</div>
           <div className='body'>
            {post.body}

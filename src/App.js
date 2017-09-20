@@ -22,7 +22,7 @@ class App extends Component {
               <Link to="/about">About</Link> | 
             </div>
           <Route exact path='/' component={PostList}/>  
-          <Route path='/post/:id' component={PostDetail} />
+          <Route path='/post/:category/:id' component={PostDetail} />
           <Route path='/postList' component={PostList} />
           <Route path='/about' component={About} />
         </div>
