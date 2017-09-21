@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Route, Link, Switch } from 'react-router-dom';
 import About  from './components/About';
+import NotFound  from './components/NotFound';
 import PostDetail  from './components/PostDetail';
 import PostList  from './PostList';
 import './App.css';
@@ -21,11 +22,14 @@ class App extends Component {
               <Link to="/postList">Home</Link> | 
               <Link to="/about">About</Link> | 
             </div>
-          <Route exact path='/' component={PostList}/>  
-          <Route path='/post/:category/:id' component={PostDetail} />
-          <Route path='/postList' component={PostList} />
-          <Route path='/deleted' component={PostList}/> 
-          <Route path='/about' component={About} />
+            <Switch>
+              <Route exact path='/' component={PostList}/>  
+              <Route path='/post/:category/:id' component={PostDetail} />
+              <Route path='/postList' component={PostList} />
+              <Route path='/deleted' component={PostList}/> 
+              <Route path='/about' component={About} />
+              <Route component={NotFound} />
+          </Switch>
         </div>
       </div>
     );
