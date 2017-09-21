@@ -7,6 +7,7 @@ import  { getByPostAsync, addCommentAsync, deleteCommentAsync, voteCommentAsync,
 import  { getPostAsync, votePostAsync, updatePostAsync }  from '../actions/post';
 import  { getCategoriesAsync }  from '../actions/category';
 import Comment from './Comment';
+import AlertContainer from 'react-alert'
 
 class Post extends Component {
 
@@ -16,6 +17,14 @@ class Post extends Component {
     post: {},
     comment: {},
     commentUpdate: false
+  }
+
+  alertOptions = {
+    offset: 14,
+    position: 'bottom left',
+    theme: 'dark',
+    time: 2000,
+    transition: 'scale'
   }
 
   constructor ({match}) {
@@ -52,18 +61,27 @@ class Post extends Component {
   }
 
   addComment = (comment) => {
-    if (this.state.commentUpdate)
+    if (this.state.commentUpdate) {
       this.props.updateComment(comment);
-    else
+      this.showMsg('Comment updated');
+    } else {
       this.props.addComment(comment);
+      this.showMsg('Comment added');
+    }
   }  
+
+  showMsg (msg) {
+    this.msg.show(msg, { time: 2000, type: 'success'});
+  }
   
   deleteComment = (id) => {
     this.props.deleteComment(id);
+    this.showMsg('Comment deleted');
   }
 
   updatePost = (post) => {
     this.props.updatePost(post);
+    this.showMsg('Post updated');
   }
 
   votePost = (vote) => {
@@ -143,7 +161,7 @@ class Post extends Component {
         >
          <CommentModal post={post} comment={this.state.comment} onCreateComment={this.addComment} closeCommentModal={this.closeCommentModal} />
         </Modal>
-
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
         </div>
     )
   }

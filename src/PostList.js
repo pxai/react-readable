@@ -6,6 +6,7 @@ import PostModal from './components/PostModal';
 import './App.css';
 import  { getPostsAsync, addPostAsync, deletePostAsync, getPostsByCategory }  from './actions/post';
 import  { getCategoriesAsync }  from './actions/category';
+import AlertContainer from 'react-alert'
 
 class PostList extends Component {
   state = {
@@ -14,6 +15,14 @@ class PostList extends Component {
     postModalOpen: false,
     sortByDate: 0,
     sortByVotes: 0
+  }
+
+  alertOptions = {
+    offset: 14,
+    position: 'bottom left',
+    theme: 'dark',
+    time: 3000,
+    transition: 'scale'
   }
 
   openPostModal = () => { this.setState(() => ({ postModalOpen: true})) }
@@ -41,11 +50,17 @@ class PostList extends Component {
 
   addPost = (post) => {
     this.props.addPost(post);
+    this.showMsg('Post successfully created!');
   }
   
   deletePost = (id) => {
     console.log('Delete post: ' , id);
     this.props.deletePost(id);
+    this.showMsg('Post was deleted!');
+  }
+
+  showMsg (msg) {
+    this.msg.show(msg, { time: 2000, type: 'success'});
   }
   
   getByCategory = (e,category) => {
@@ -140,6 +155,7 @@ class PostList extends Component {
         >
          <PostModal  title="Create Post" onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
         </Modal>
+        <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
       </div>
     );
   }
