@@ -8,16 +8,15 @@ export const DELETE_POST = 'DELETE_POST'
 export const UPDATE_POST = 'UPDATE_POST'
 export const VOTE_POST = 'VOTE_POST'
 
-export function getPost(id) {
+export function getPost(post) {
     return {
         type: GET_POST,
-        id
+        post
     }
 }
-
 export function getPostAsync(id) {
     return dispatch => (
-        Post.get(id).then(post => post.id)
+        Post.get(id).then(post => dispatch(getPost(post)))
     )
 }
 

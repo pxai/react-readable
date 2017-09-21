@@ -72,6 +72,13 @@ class PostList extends Component {
   componentWillMount() {
     this.props.getCategories()
     this.props.getPosts()
+   console.log('Coming back with...',this.props.match);
+  }
+
+  componentDidMount() {
+    if (this.props.match.url === '/deleted') {
+      this.showMsg('Post deleted!');
+    }
   }
 
   render() {

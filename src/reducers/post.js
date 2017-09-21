@@ -17,7 +17,7 @@ import {
       case GET_POSTS:
         return { posts: action.posts.filter(elem => !elem.deleted)};
       case GET_POST:
-        return state.posts.filter(elem => elem.id === action.id);
+        return { posts: [action.post]};
       case GET_POSTS_BY_CATEGORY:
         return { posts: state.posts.filter(elem => elem.category === action.category) };
       case ADD_POST:
