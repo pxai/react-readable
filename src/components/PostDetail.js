@@ -122,6 +122,10 @@ class Post extends Component {
       return <Redirect push to="/deleted"/>;
     }
 
+    if (this.props.posts.length === 0) {
+      return <Redirect push to="/404"/>;
+    }
+
     const post = this.props.posts[0];
     const comments = this.props.comments;
 

@@ -19,15 +19,15 @@ class App extends Component {
               <h1>Pello's MyReads</h1>
             </div>
             <div>
-              <Link to="/postList">Home</Link> | 
+              <Link to="/">Home</Link> | 
               <Link to="/about">About</Link> | 
             </div>
             <Switch>
               <Route exact path='/' component={PostList}/>  
               <Route path='/post/:category/:id' component={PostDetail} />
-              <Route path='/postList' component={PostList} />
-              <Route path='/deleted' component={PostList}/> 
-              <Route path='/about' component={About} />
+              <Route exact path='/postList' component={PostList} />
+              <Route exact path='/deleted' component={PostList}/> 
+              <Route exact path='/about' component={About} />
               <Route component={NotFound} />
           </Switch>
         </div>
