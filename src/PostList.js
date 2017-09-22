@@ -83,13 +83,14 @@ class PostList extends Component {
 
   render() {
     var postListByCategory = {};
+    const currentCategory = this.props.match.params.category;
     var tmpPostList = {};   
     const emptyPost = {id: 0, title: '', author: '', category: '', body: ''};
 
-    if (this.state.category === '') {
+    if (!this.props.match.params.category) {
       postListByCategory = this.props.posts;
     } else {
-      postListByCategory = this.props.posts.filter(post => post.category === this.state.category);
+      postListByCategory = this.props.posts.filter(post => post.category === this.props.match.params.category);
     }
 
     if (this.state.sortByDate !== 0) {
@@ -107,9 +108,10 @@ class PostList extends Component {
     } else {
       tmpPostList = postListByCategory;
     }
-
+    
     const postList = tmpPostList;
-
+    const voidMsg = (!postList.length)?`No posts for category ${currentCategory}`:"";
+   
     return (
       <div className="app">
           <div>
@@ -131,7 +133,7 @@ class PostList extends Component {
                    this.props.categories.map((category) =>
                    (
                         <span key={category.name}>
-                          <a className="category" href="" onClick={(e) => this.getByCategory(e,category.name)}>
+                          <a className="category" href={category.name} >
                             <span>{category.name}</span>
                            </a>
                         </span>
@@ -140,6 +142,7 @@ class PostList extends Component {
               </div>
               </div>     
               <div className="posts">
+                {voidMsg}
               { 
                    postList.map((post) =>
                    (

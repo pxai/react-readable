@@ -24,10 +24,12 @@ class App extends Component {
             </div>
             <Switch>
               <Route exact path='/' component={PostList}/>  
+              <Route exact path='/404' component={NotFound}/> 
               <Route path='/post/:category/:id' component={PostDetail} />
               <Route exact path='/postList' component={PostList} />
               <Route exact path='/deleted' component={PostList}/> 
               <Route exact path='/about' component={About} />
+              <Route path='/:category' component={PostList} />
               <Route component={NotFound} />
           </Switch>
         </div>
