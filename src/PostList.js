@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import Post  from './components/Post';
 import PostModal from './components/PostModal';
 import './App.css';
-import  { getPostsAsync, addPostAsync, deletePostAsync, getPostsByCategory }  from './actions/post';
+import  { getPostsAsync, addPostAsync, votePostAsync, updatePostAsync, deletePostAsync, getPostsByCategory }  from './actions/post';
 import  { getCategoriesAsync }  from './actions/category';
 import AlertContainer from 'react-alert'
 
@@ -49,10 +49,21 @@ class PostList extends Component {
 
 
   addPost = (post) => {
+    post.voteScore = 1;
     this.props.addPost(post);
     this.showMsg('Post successfully created!');
   }
   
+  updatePost = (post) => {
+    this.props.updatePost(post);
+    this.showMsg('Post updated');
+  }
+
+  votePost = (id, vote) => {
+    let option = {option: vote};
+    this.props.votePost(id, option);
+  }
+
   deletePost = (id) => {
     console.log('Delete post: ' , id);
     this.props.deletePost(id);
@@ -146,7 +157,7 @@ class PostList extends Component {
               { 
                    postList.map((post) =>
                    (
-                    <Post  key={post.id} post={post} deletePost={this.deletePost} />
+                    <Post  key={post.id} post={post} votePost={this.votePost} updatePost={this.updatePost} deletePost={this.deletePost} />
                    ))
                    }    
 
@@ -163,8 +174,9 @@ class PostList extends Component {
           post={emptyPost}
           contentLabel='Modal'
         >
-         <PostModal  title="Create Post" onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
+          <PostModal  title="Create Post" onCreatePost={this.addPost} categories={this.props.categories} closePostModal={this.closePostModal} />
         </Modal>
+
         <AlertContainer ref={a => this.msg = a} {...this.alertOptions} />
       </div>
     );
@@ -185,7 +197,9 @@ function mapDispatchToProps (dispatch) {
     getPosts: () => dispatch(getPostsAsync()),
     getPostsByCategory: (category) => dispatch(getPostsByCategory(category)),
     addPost: (post) => dispatch(addPostAsync(post)),
-    deletePost: (id) => dispatch(deletePostAsync(id))
+    deletePost: (id) => dispatch(deletePostAsync(id)),
+    votePost: (id, vote) => dispatch(votePostAsync(id,vote)),
+    updatePost: (post) => dispatch(updatePostAsync(post))
   }
 }
    
