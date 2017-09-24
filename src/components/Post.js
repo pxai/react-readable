@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import PostModal from './PostModal';
 import { getByPostAsync } from '../actions/comment';
-import {addPostAsync, votePostAsync } from '../actions/post';
 
 class Post extends Component {
   state = {
@@ -23,7 +22,6 @@ class Post extends Component {
 
   updatePost = (post) => {
     this.props.updatePost(post);
-    this.showMsg('Post updated');
   }
 
   deletePost= () => {

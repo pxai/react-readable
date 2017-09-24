@@ -157,7 +157,7 @@ class PostList extends Component {
               { 
                    postList.map((post) =>
                    (
-                    <Post  key={post.id} post={post} votePost={this.votePost} updatePost={this.updatePost} deletePost={this.deletePost} />
+                    <Post  key={post.id} post={post} categories={this.props.categories}  votePost={this.votePost} updatePost={this.updatePost} deletePost={this.deletePost} />
                    ))
                    }    
 
